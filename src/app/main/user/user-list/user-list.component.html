@@ -1,0 +1,36 @@
+<p-table [columns]="cols" [value]="users" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)"
+    [paginator]="true" [rows]="10" [reorderableColumns]="true" [responsive]="true">
+    <ng-template pTemplate="caption">
+        Danh sách user
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width:2em"></th>
+            <th *ngFor="let col of columns" pReorderableColumn>
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+        <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
+            <td>
+                <i class="fa fa-bars" pReorderableRowHandle></i>
+            </td>
+            <td *ngFor="let col of columns">
+                <span class="ui-column-title">{{col.header}}</span>
+                <p *ngIf="col.field !=='imgLink'">{{rowData[col.field]}}</p>
+                <img *ngIf="col.field ==='imgLink'" src="../../../../assets/images/{{rowData[col.field]}}" alt="Smiley face">
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add" style="margin: 0px"></button>
+        </div>
+    </ng-template>
+
+</p-table>
+<p-dialog header="Chi tiết người dùng" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
+    <app-user-detail *ngIf="user" [user] = "selectedUser"></app-user-detail>
+</p-dialog>
