@@ -14,6 +14,11 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { httpInterceptorProviders } from './core/interceptors';
 import { HttpClientModule } from '@angular/common/http';
 import { ChooseImageComponent } from './shared/choose-image/choose-image.component';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { ChooseImageComponent } from './shared/choose-image/choose-image.compone
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
+    TableModule, DialogModule, ButtonModule, InputTextModule, FileUploadModule,
     AppRoutingModule
   ],
   providers: [

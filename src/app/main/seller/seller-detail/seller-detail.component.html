@@ -1,7 +1,7 @@
 <form [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
   <div style="margin-bottom: 1em">
-    <button type="submit" [disabled]="sellerForm.pristine || sellerForm.invalid" class="btn btn-success">Save</button> &nbsp;
-    <button type="button" (click)="deleteSeller()" class="btn btn-danger">Delete</button> &nbsp;
+    <button type="submit" [disabled]="sellerForm.pristine || sellerForm.invalid" class="btn btn-success"><i class="fa fa-check"></i> Save</button> &nbsp;
+    <button type="button" (click)="deleteSeller()" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button> &nbsp;
     <button type="button" (click)="revert()" [disabled]="sellerForm.pristine || sellerForm.invalid" class="btn btn-info">Revert</button>
   </div>
   <!-- Seller Detail Controls -->
