@@ -32,6 +32,7 @@
     "moment": "^2.19.2",
     "npm": "^6.0.1",
     "nprogress": "^0.2.0",
+    "primeicons": "^1.0.0-beta.6",
     "primeng": "^6.0.0-alpha.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

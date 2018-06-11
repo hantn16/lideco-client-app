@@ -1,7 +1,7 @@
 <form #userForm="ngForm">
   <div class="ui-g ui-fluid" *ngIf="user">
     <div class="ui-g-3">
-      <div class="ui-g-12 thumbnail">
+      <div class="ui-g-12 thumbnail" style="margin-bottom: 0px">
         <!-- <div class="ui-g-4">
                         <label for="imgLink">Ảnh đại diện</label>
                     </div> -->
@@ -13,7 +13,7 @@
                             maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
                     </div> -->
         <div class="image view view-first">
-          <img width="100%" style="display: block" src="../../../../assets/images/{{user.imgLink}}">
+          <img width="100%" style="display: block" src="../../../../assets/images/{{user.imgLink}}"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
           <div class="mask">
             <div class="tools tools-bottom" style="margin-top: 83px">
               <a (click)="onChangeAvatar($event)">
@@ -58,8 +58,8 @@
 
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix" style="padding-left: 5px">
-      <button type="button" pButton class="ui-button-danger" icon="fa-close" (click)="deleteUser()" label="Delete"></button>
-      <button type="button" pButton class="ui-button-success" icon="fa-check" (click)="saveUser()" label="Save"></button>
+      <button type="button" pButton class="ui-button-danger" icon="fa fa-close" (click)="deleteUser()" label="Delete"></button>
+      <button type="button" pButton class="ui-button-success" icon="fa fa-check" (click)="saveUser()" label="Save"></button>
     </div>
   </p-footer>
 </form>

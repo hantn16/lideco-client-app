@@ -46,6 +46,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
   deleteUser() {
 
   }
-  onChangeAvatar() {
+  onChangeAvatar(event) {
+
   }
 }

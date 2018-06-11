@@ -26,11 +26,11 @@
 
     <ng-template pTemplate="summary" let-rowData>
         <div style="text-align:left">
-            <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add" style="margin: 0px"></button>
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Thêm mới người dùng" style="margin: 0px"></button>
         </div>
     </ng-template>
 
 </p-table>
-<p-dialog header="Chi tiết người dùng" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
+<p-dialog header="Chi tiết người dùng" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600" closable = "true">
     <app-user-detail *ngIf="user" [user] = "selectedUser"></app-user-detail>
 </p-dialog>
