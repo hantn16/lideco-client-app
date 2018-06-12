@@ -1,19 +1,9 @@
-<form #userForm="ngForm">
+<form [FormGroup] = "userForm" (submit) = "onSaveUser()">
   <div class="ui-g ui-fluid" *ngIf="user">
     <div class="ui-g-3">
       <div class="ui-g-12 thumbnail" style="margin-bottom: 0px">
-        <!-- <div class="ui-g-4">
-                        <label for="imgLink">Ảnh đại diện</label>
-                    </div> -->
-        <!-- <div class="ui-g-6">
-                        <input type="text" pInputText id="imgLink" [(ngModel)]="user.imgLink" />
-                    </div> -->
-        <!-- <div class="ui-g-2">
-                        <p-fileUpload mode="basic" name="userImages[]" url="../../../../../assets/images" accept="image/*" auto="true" chooseLabel="Chọn"
-                            maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
-                    </div> -->
-        <div class="image view view-first">
-          <img width="100%" style="display: block" src="../../../../assets/images/{{user.imgLink}}"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
+        <div class="image view view-first" *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid">
+          <img width="100%" style="display: block" [src]="avatarPreview"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
           <div class="mask">
             <div class="tools tools-bottom" style="margin-top: 83px">
               <a (click)="onChangeAvatar($event)">
@@ -23,17 +13,17 @@
         </div>
         <div class="caption">
           <p class="text-center">{{user.imgLink}}</p>
-          <input hidden id="imgLink" [(ngModel)] = "user.imgLink" name="imgLink">
+          <input hidden id="imgLink" formControlName=="imgLink">
         </div>
       </div>
     </div>
-    <div class="ui-g-9">
+    <div class="ui-g-9 form-group">
       <div class="ui-g-12 form-group">
         <div class="ui-g-4">
           <label for="email">Email</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="email" [(ngModel)]="user.email" name="email" />
+          <input pInputText id="email" formControlName="email"/>
         </div>
       </div>
       <div class="ui-g-12 form-group">
@@ -41,7 +31,7 @@
           <label for="name">Tên</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="name" [(ngModel)]="user.name" name="name" />
+          <input pInputText id="name" formControlName="name" />
         </div>
       </div>
       <div class="ui-g-12 form-group">
@@ -49,7 +39,7 @@
           <label for="fullName">Tên đầy đủ</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="fullName" [(ngModel)]="user.fullName" name="fullName" />
+          <input pInputText id="fullName" formControlName="fullName" />
         </div>
       </div>
 
@@ -58,8 +48,8 @@
 
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix" style="padding-left: 5px">
-      <button type="button" pButton class="ui-button-danger" icon="fa fa-close" (click)="deleteUser()" label="Delete"></button>
-      <button type="button" pButton class="ui-button-success" icon="fa fa-check" (click)="saveUser()" label="Save"></button>
+      <button type="button" pButton class="ui-button-danger" icon="fa fa-close" (click)="onDeleteUser()" label="Delete"></button>
+      <button type="submit" pButton class="ui-button-success" icon="fa fa-check" label="Save"></button>
     </div>
   </p-footer>
 </form>

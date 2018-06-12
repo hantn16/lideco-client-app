@@ -7,17 +7,26 @@ import { forEach } from '@angular/router/src/utils/collection';
   templateUrl: './choose-image.component.html',
   styleUrls: ['./choose-image.component.css']
 })
-export class ChooseImageComponent implements OnChanges {
+export class ChooseImageComponent implements OnChanges, OnInit {
 
-  @Input() listImages;
+
+  @Input() listImages: any[];
   constructor(private _dataService: DataService) { }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
     this.getListImages();
   }
-  getListImages() {
-    return this._dataService.get('images').subscribe(list => this.getImage(list));
+  ngOnChanges(changes: SimpleChanges): void {
+    this.showListImages(this.listImages);
   }
-  getImage = (image) => {
+  getListImages() {
+    this._dataService.get('images').subscribe(list => this.listImages = list);
+  }
+  showImage = (image) => {
     return this._dataService.get(`image/${image.id}`).subscribe();
+  }
+  showListImages = (list: any[]) => {
+    list.forEach((item) => {
+      this.showImage(item);
+    });
   }
 }
