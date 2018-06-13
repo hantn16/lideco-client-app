@@ -42,6 +42,17 @@ import { FileUploadModule } from 'primeng/fileupload';
     SellerService,
     httpInterceptorProviders
   ],
+  exports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule,
+    TableModule, DialogModule, ButtonModule, InputTextModule, FileUploadModule,
+    AppRoutingModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

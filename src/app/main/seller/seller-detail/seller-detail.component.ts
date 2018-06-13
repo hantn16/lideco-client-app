@@ -1,10 +1,8 @@
 import { Component, OnChanges, EventEmitter, Input, Output } from '@angular/core';
 import { Seller } from '../../../core/domain/seller.model';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { SellerService } from '../seller.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from '../../../core/services/notification.service';
 import { DataService } from '../../../core/services/data.service';
-import { SystemConstants } from '../../../core/common/system.constants';
 import { MessageContstants } from '../../../core/common/message.constants';
 
 @Component({

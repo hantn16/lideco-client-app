@@ -34,8 +34,6 @@ export class UserListComponent implements OnInit {
     this.displayDialog = true;
   }
 
-
-
   onRowSelect(event) {
     this.newUser = false;
     this.user = this.cloneUser(event.data);

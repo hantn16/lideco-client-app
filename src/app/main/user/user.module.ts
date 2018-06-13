@@ -20,6 +20,12 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     TableModule, DialogModule, ButtonModule, InputTextModule, FileUploadModule,
     UserRoutingModule
   ],
-  declarations: [UserComponent, UserListComponent, UserDetailComponent]
+  declarations: [UserComponent, UserListComponent, UserDetailComponent],
+  exports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TableModule, DialogModule, ButtonModule, InputTextModule, FileUploadModule,
+    UserRoutingModule
+  ]
 })
 export class UserModule { }

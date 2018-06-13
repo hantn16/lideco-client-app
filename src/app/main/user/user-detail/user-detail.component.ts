@@ -13,8 +13,6 @@ import { User } from '../../../core/domain/user.model';
 })
 export class UserDetailComponent implements OnInit, OnChanges {
 
-
-
   @Input() user: User;
   userForm: FormGroup;
   avatarPreview: String;
@@ -46,11 +44,11 @@ export class UserDetailComponent implements OnInit, OnChanges {
   }
   onSaveUser() {
     this.user = this.prepareSaveUser();
-    if (this.user.id === null) {
-      this.addSeller();
-    } else {
-      this.updateSeller();
-    }
+    // if (this.user.id === null) {
+    //   this.addSeller();
+    // } else {
+    //   this.updateSeller();
+    // }
   }
   updateSeller() {
     const updatedSeller = this._dataService.patch(`users/${this.user.id}`, this.user)

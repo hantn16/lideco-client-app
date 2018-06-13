@@ -11,11 +11,12 @@ export class UserService {
   constructor(private _dataService: DataService) { }
   getListUsers = (): User[] => {
     const convertedUsers = [] as User[];
-    this._dataService.get('users/getall').pipe(map((res) => {
-      res.array.forEach(user => {
+    this._dataService.get('users/getall').subscribe((res) => {
+      const kq = res.users;
+      for (const user of kq) {
         convertedUsers.push(this.convert2UserModel(user));
-      });
-    }));
+      }
+    });
     return convertedUsers;
   }
   getUserById = (id: string): User => {
