@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, pipe } from 'rxjs';
 import { SystemConstants } from '../common/system.constants';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { User } from '../domain/user';
+import { User } from '../domain/user.model';
 import * as moment from 'moment';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 

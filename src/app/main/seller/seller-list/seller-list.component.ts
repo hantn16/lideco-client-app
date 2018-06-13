@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SellerModel } from '../../../core/domain/seller.model';
+import { Seller } from '../../../core/domain/seller.model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SellerService } from '../seller.service';
 import { finalize, map } from 'rxjs/operators';

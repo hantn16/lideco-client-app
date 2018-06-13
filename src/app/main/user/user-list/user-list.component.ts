@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { UserService } from '../user.service';
-import { User } from '../../../core/domain/user';
+import { User } from '../../../core/domain/user.model';
 
 @Component({
   selector: 'app-user-list',
@@ -14,11 +14,11 @@ export class UserListComponent implements OnInit {
   users: User[];
   user: User;
   selectedUser: User;
-  newUser: Boolean;
+  newUser: Boolean = true;
   constructor(private _userService: UserService) { }
 
   ngOnInit() {
-    this._userService.getListUsers().subscribe(res => this.users = res.users);
+    this.users = this._userService.getListUsers();
 
     this.cols = [
       { field: 'imgLink', header: 'Ảnh đại diện' },

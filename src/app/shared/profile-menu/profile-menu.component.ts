@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../core/domain/user';
+import { User } from '../../core/domain/user.model';
 import { SystemConstants } from '../../core/common/system.constants';
 import { AuthenService } from '../../core/services/authen.service';
 

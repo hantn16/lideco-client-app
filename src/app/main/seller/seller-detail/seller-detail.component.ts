@@ -1,5 +1,5 @@
 import { Component, OnChanges, EventEmitter, Input, Output } from '@angular/core';
-import { SellerModel } from '../../../core/domain/seller.model';
+import { Seller } from '../../../core/domain/seller.model';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { SellerService } from '../seller.service';
 import { NotificationService } from '../../../core/services/notification.service';
@@ -13,7 +13,7 @@ import { MessageContstants } from '../../../core/common/message.constants';
   styleUrls: ['./seller-detail.component.css']
 })
 export class SellerDetailComponent implements OnChanges {
-  @Input() seller;
+  @Input() seller: Seller;
   @Output() updateList = new EventEmitter();
 
   sellerForm: FormGroup;
@@ -31,7 +31,7 @@ export class SellerDetailComponent implements OnChanges {
 
   createForm() {
     this.sellerForm = this.fb.group({
-      _id: '',
+      id: '',
       commonName: '',
       companyName: '',
       taxCode: ['', [Validators.required, Validators.minLength(10)]],
@@ -45,7 +45,7 @@ export class SellerDetailComponent implements OnChanges {
 
   rebuildForm() {
     this.sellerForm.reset({
-      _id: this.seller._id,
+      id: this.seller.id,
       commonName: this.seller.commonName,
       companyName: this.seller.companyName,
       taxCode: this.seller.taxCode,
@@ -56,14 +56,14 @@ export class SellerDetailComponent implements OnChanges {
 
   onSubmit() {
     this.seller = this.prepareSaveSeller();
-    if (this.seller._id === null) {
+    if (this.seller.id === null) {
       this.addSeller();
     } else {
       this.updateSeller();
     }
   }
   updateSeller() {
-    const updatedSeller = this._dataService.patch('sellers/' + this.seller._id, this.seller)
+    const updatedSeller = this._dataService.patch('sellers/' + this.seller.id, this.seller)
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
         this.updateList.emit();
@@ -82,7 +82,7 @@ export class SellerDetailComponent implements OnChanges {
   }
   deleteSeller() {
     this.seller = this.prepareSaveSeller();
-    const deletedSeller = this._dataService.deleteById('sellers/' + this.seller._id)
+    const deletedSeller = this._dataService.deleteById('sellers/' + this.seller.id)
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
         this.seller = undefined;
@@ -95,7 +95,7 @@ export class SellerDetailComponent implements OnChanges {
   prepareSaveSeller() {
     const formModel = this.sellerForm.value;
     const saveSeller = {
-      _id: formModel._id as string,
+      id: formModel.id as string,
       commonName: formModel.commonName as string,
       companyName: formModel.companyName as string,
       taxCode: formModel.taxCode as string,

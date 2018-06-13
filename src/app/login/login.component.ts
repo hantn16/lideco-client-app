@@ -4,7 +4,7 @@ import { NotificationService } from '../core/services/notification.service';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { UrlConstants } from '../core/common/url.constants';
 import { MessageContstants } from '../core/common/message.constants';
-import { User } from '../core/domain/user';
+import { User } from '../core/domain/user.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 

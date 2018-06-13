@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { DataService } from '../../../core/services/data.service';
 import { MessageContstants } from '../../../core/common/message.constants';
+import { User } from '../../../core/domain/user.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -14,7 +15,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
 
 
 
-  @Input() user;
+  @Input() user: User;
   userForm: FormGroup;
   avatarPreview: String;
   constructor(private fb: FormBuilder,
@@ -24,7 +25,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
   }
   createForm(): any {
     this.userForm = this.fb.group({
-      name: '',
+      name: ['', Validators.required],
       imgLink: '',
       fullName: ['', [Validators.required, Validators.minLength(10)]],
       email: ['', [Validators.required, Validators.email]]
@@ -45,14 +46,14 @@ export class UserDetailComponent implements OnInit, OnChanges {
   }
   onSaveUser() {
     this.user = this.prepareSaveUser();
-    if (this.user._id === null) {
+    if (this.user.id === null) {
       this.addSeller();
     } else {
       this.updateSeller();
     }
   }
   updateSeller() {
-    const updatedSeller = this._dataService.patch(`users/${this.user._id}`, this.user)
+    const updatedSeller = this._dataService.patch(`users/${this.user.id}`, this.user)
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
         // this.updateList.emit();
@@ -78,6 +79,7 @@ export class UserDetailComponent implements OnInit, OnChanges {
   prepareSaveUser() {
     const formModel = this.userForm.value;
     const saveUser = {
+      id: formModel.id as string,
       name: formModel.name as string,
       fullName: formModel.fullName as string,
       email: formModel.email as string,
