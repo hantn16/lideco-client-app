@@ -2,7 +2,7 @@
   <div class="ui-g ui-fluid" *ngIf="user">
     <div class="ui-g-3">
       <div class="ui-g-12 thumbnail" style="margin-bottom: 0px">
-        <div class="image view view-first" *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid">
+        <div class="image view view-first" > <!-- *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid" -->
           <img width="100%" style="display: block" [src]="user.imgLink"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
           <div class="mask">
             <div class="tools tools-bottom" style="margin-top: 83px">
@@ -12,8 +12,8 @@
           </div>
         </div>
         <div class="caption">
-          <p class="text-center">{{user.imgLink}}</p>
-          <input hidden id="imgLink" formControlName="imgLink">
+          <button type="button" (click)="filePicker.click()">Đổi ảnh</button>
+          <input style="display: none; margin: 0px" type="file" #filePicker (change)="onImagePicked($event)">
         </div>
       </div>
     </div>
