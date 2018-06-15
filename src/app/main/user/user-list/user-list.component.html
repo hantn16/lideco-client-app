@@ -19,7 +19,7 @@
             <td *ngFor="let col of columns">
                 <span class="ui-column-title">{{col.header}}</span>
                 <p *ngIf="col.field !=='imgLink'">{{rowData[col.field]}}</p>
-                <img *ngIf="col.field ==='imgLink'" [src]="rowData[col.field]" alt="Smiley face">
+                <img *ngIf="col.field ==='imgLink'" [src]="rowData[col.field]" alt="Smiley face" style="height: 32px;">
             </td>
         </tr>
     </ng-template>
