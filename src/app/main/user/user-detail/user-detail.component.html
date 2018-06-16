@@ -2,19 +2,20 @@
   <div class="ui-g ui-fluid" *ngIf="user">
     <div class="ui-g-3">
       <div class="ui-g-12 thumbnail" style="margin-bottom: 0px">
-        <div class="image view view-first" > <!-- *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid" -->
-          <img width="100%" style="display: block" [src]="user.imgLink"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
+        <div class="image view view-first"> <!-- *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid" -->
+          <img width="100%" style="display: block" [src]="avatarPreview"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
+          <!-- <img *ngIf="avatarPreview !== '' && avatarPreview" id="avatarPreview" width="100%" style="display: block" [src]="avatarPreview"> -->
           <div class="mask">
             <div class="tools tools-bottom" style="margin-top: 83px">
               <a (click)="onChangeAvatar($event)">
-                <i class="fa fa-camera"></i></a>
+                <i class="fa fa-camera"></i>
+              </a>
             </div>
           </div>
         </div>
         <div class="caption">
           <button type="button" class="ui-button" (click)="filePicker.click()"><i class="fa fa-camera"></i></button>
           <input style="display: none; margin: 0px" type="file" #filePicker (change)="onImagePicked($event)">
-          <button type="button" class="ui-button" (click)="showAllImage()"><i class="fa fa-check"></i></button>
         </div>
       </div>
     </div>

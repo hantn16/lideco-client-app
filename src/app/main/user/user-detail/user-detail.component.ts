@@ -26,10 +26,12 @@ export class UserDetailComponent implements OnInit, OnChanges {
       name: ['', Validators.required],
       imgLink: '',
       fullName: ['', [Validators.required, Validators.minLength(10)]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      avatar: [null, Validators.required]
     });
   }
   ngOnInit() {
+    this.avatarPreview = this.user.imgLink;
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.rebuildForm();
@@ -39,8 +41,10 @@ export class UserDetailComponent implements OnInit, OnChanges {
       name: this.user.name,
       fullName: this.user.fullName,
       email: this.user.email,
-      imgLink: this.user.imgLink
+      imgLink: this.user.imgLink,
+      avatar: null
     });
+    this.avatarPreview = this.user.imgLink;
   }
   onSaveUser() {
     this.user = this.prepareSaveUser();
@@ -71,8 +75,15 @@ export class UserDetailComponent implements OnInit, OnChanges {
   onDeleteUser() {
 
   }
-  onChangeAvatar(event) {
-
+  onImagePicked(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.userForm.patchValue({ avatar: file });
+    this.userForm.get('avatar').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.avatarPreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
   prepareSaveUser() {
     const formModel = this.userForm.value;
