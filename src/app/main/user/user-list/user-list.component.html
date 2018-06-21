@@ -31,6 +31,6 @@
     </ng-template>
 
 </p-table>
-<p-dialog header="Chi tiết người dùng" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600" closable = "true">
+<p-dialog header="Chi tiết người dùng" (onHide) = "resetDialog($event)" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600" closable = "true">
     <app-user-detail *ngIf="user" [user] = "selectedUser"></app-user-detail>
 </p-dialog>
