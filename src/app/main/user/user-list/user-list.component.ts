@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgModule, OnDestroy, EventEmitter } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { UserService } from '../user.service';
 import { User } from '../../../core/domain/user.model';
@@ -61,7 +61,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     user['imgLink'] = us.imgLink;
     return <User>user;
   }
-  resetDialog(event: Event) {
+  resetDialog(event) {
+    $(<HTMLElement>event.target).find('input').value = '';
   }
   ngOnDestroy(): void {
     this.usersSub.unsubscribe();

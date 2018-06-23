@@ -15,7 +15,7 @@
         </div>
         <div class="caption">
           <button type="button" class="ui-button" (click)="filePicker.click()"><i class="fa fa-camera"></i></button>
-          <input style="display: none; margin: 0px" type="file" #filePicker (change)="onImagePicked($event)">
+          <input id="filePicker" style="display: none; margin: 0px" type="file" #filePicker (click) = "resetFileInput($event)" (change)="onImagePicked($event)">
         </div>
       </div>
     </div>

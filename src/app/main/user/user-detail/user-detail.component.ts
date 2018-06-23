@@ -2,9 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { NotificationService } from '../../../core/services/notification.service';
-import { DataService } from '../../../core/services/data.service';
-import { MessageContstants } from '../../../core/common/message.constants';
 import { User } from '../../../core/domain/user.model';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-user-detail',
@@ -16,15 +15,18 @@ export class UserDetailComponent implements OnInit, OnChanges {
   @Input() user: User;
   userForm: FormGroup;
   avatarPreview: String;
+
+  isLoading = false;
+  private createMode = true;
+  private userId: string;
   constructor(private fb: FormBuilder,
-    private _dataService: DataService,
+    private userService: UserService,
     private _notificationService: NotificationService) {
     this.createForm();
   }
   createForm(): any {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      imgLink: '',
       fullName: ['', [Validators.required, Validators.minLength(10)]],
       email: ['', [Validators.required, Validators.email]],
       avatar: [null, Validators.required]
@@ -34,6 +36,9 @@ export class UserDetailComponent implements OnInit, OnChanges {
     this.avatarPreview = this.user.imgLink;
   }
   ngOnChanges(changes: SimpleChanges): void {
+    // console.log(this.user);
+    $('#filePicker').value = '';
+    this.userForm.reset();
     this.rebuildForm();
   }
   rebuildForm() {
@@ -41,40 +46,55 @@ export class UserDetailComponent implements OnInit, OnChanges {
       name: this.user.name,
       fullName: this.user.fullName,
       email: this.user.email,
-      imgLink: this.user.imgLink,
-      avatar: null
+      avatar: this.user.imgLink
     });
     this.avatarPreview = this.user.imgLink;
   }
   onSaveUser() {
     this.user = this.prepareSaveUser();
-    // if (this.user.id === null) {
-    //   this.addSeller();
-    // } else {
-    //   this.updateSeller();
-    // }
+    if (this.userForm.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    if (this.createMode) {
+      this.userService.addUser(
+        this.userForm.value.email,
+        this.userForm.value.name,
+        this.userForm.value.fullName,
+        this.userForm.value.avatar
+      );
+    } else {
+      this.userService.updateUser(
+        this.userId,
+        this.userForm.value.email,
+        this.userForm.value.name,
+        this.userForm.value.fullName,
+        this.userForm.value.avatar
+      );
+    }
+    this.userForm.reset();
   }
-  updateSeller() {
-    const updatedSeller = this._dataService.patch(`users/${this.user.id}`, this.user)
-      .subscribe((res) => {
-        this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
-        // this.updateList.emit();
-        return res.seller;
-      }, (err) => this._dataService.handleError(err));
-    this.rebuildForm();
-  }
-  addSeller() {
-    const newSeller = this._dataService.post('users', this.user)
-      .subscribe((res) => {
-        this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
-        // this.updateList.emit();
-        return res.seller;
-      }, err => this._dataService.handleError(err));
-    this.rebuildForm();
-  }
-  onDeleteUser() {
+  // updateSeller() {
+  //   const updatedSeller = this.userService.patch(`users/${this.user.id}`, this.user)
+  //     .subscribe((res) => {
+  //       this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+  //       // this.updateList.emit();
+  //       return res.seller;
+  //     }, (err) => this.userService.handleError(err));
+  //   this.rebuildForm();
+  // }
+  // addSeller() {
+  //   const newSeller = this.userService.post('users', this.user)
+  //     .subscribe((res) => {
+  //       this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+  //       // this.updateList.emit();
+  //       return res.seller;
+  //     }, err => this.userService.handleError(err));
+  //   this.rebuildForm();
+  // }
+  // onDeleteUser() {
 
-  }
+  // }
   onImagePicked(event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.userForm.patchValue({ avatar: file });
@@ -85,14 +105,19 @@ export class UserDetailComponent implements OnInit, OnChanges {
     };
     reader.readAsDataURL(file);
   }
+  resetFileInput(event) {
+    const el = event.target as HTMLInputElement;
+    console.log(el.value);
+    el.value = '';
+  }
   prepareSaveUser() {
-    const formModel = this.userForm.value;
+    const userFormModel = this.userForm.value;
     const saveUser = {
-      id: formModel.id as string,
-      name: formModel.name as string,
-      fullName: formModel.fullName as string,
-      email: formModel.email as string,
-      imgLink: formModel.imgLink as string
+      id: userFormModel.id as string,
+      name: userFormModel.name as string,
+      fullName: userFormModel.fullName as string,
+      email: userFormModel.email as string,
+      imgLink: userFormModel.imgLink as string
     };
     return saveUser;
   }
