@@ -1,21 +1,21 @@
-<form [formGroup] = "userForm" (submit) = "onSaveUser()">
+<form [formGroup]="userForm" (submit)="onSaveUser()">
   <div class="ui-g ui-fluid" *ngIf="user">
     <div class="ui-g-3">
-      <div class="ui-g-12 thumbnail" style="margin-bottom: 0px">
-        <div class="image view view-first"> <!-- *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid" -->
-          <img width="100%" style="display: block" [src]="avatarPreview"> <!-- src="../../../../assets/images/{{user.imgLink}}" -->
+      <div class="ui-g-12 thumbnail" style="margin-bottom: 0px;height: auto">
+        <div class="image view view-first">
+          <!-- *ngIf = "avatarPreview !== '' && avatarPreview && form.get('imgLink').valid" -->
+          <img width="100%" style="display: block" [src]="avatarPreview">
+          <!-- src="../../../../assets/images/{{user.imgLink}}" -->
           <!-- <img *ngIf="avatarPreview !== '' && avatarPreview" id="avatarPreview" width="100%" style="display: block" [src]="avatarPreview"> -->
           <div class="mask">
             <div class="tools tools-bottom" style="margin-top: 83px">
-              <a (click)="onChangeAvatar($event)">
+              <a (click)="filePicker.click()" placeholder="Đổi ảnh">
                 <i class="fa fa-camera"></i>
               </a>
             </div>
           </div>
-        </div>
-        <div class="caption">
-          <button type="button" class="ui-button" (click)="filePicker.click()"><i class="fa fa-camera"></i></button>
-          <input id="filePicker" style="display: none; margin: 0px" type="file" #filePicker (click) = "resetFileInput($event)" (change)="onImagePicked($event)">
+          <input id="filePicker" style="display: none; margin: 0px" 
+          type="file" #filePicker (change)="onImagePicked($event)">
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
           <label for="email">Email</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="email" formControlName="email"/>
+          <input pInputText id="email" formControlName="email" />
         </div>
       </div>
       <div class="ui-g-12 form-group">
